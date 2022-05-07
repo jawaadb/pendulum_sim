@@ -23,8 +23,13 @@ void draw() {
 
   pushMatrix();
   translate(width/2, height/2);
+  scale(1, -1, 1);
+  rotateX(-PI/2);
 
-  lights();
+  directionalLight(60,40,40,1,0,0);
+  directionalLight(40,40,60,-1,1,0);
+  directionalLight(80,80,80,0,0,1);
+  ambientLight(120, 120, 120);
 
   positionCamera();
 
@@ -35,6 +40,7 @@ void draw() {
 
 void drawScene() {
   drawCartesianAxes(refLen / 2);
+  strokeWeight(2);
   stroke(0);
   box(refLen / 4);
 }
@@ -45,7 +51,7 @@ void positionCamera() {
 
   if (mousePressed) {
     if (mouseButton == LEFT) {
-      camPitch += -(mouseY - pmouseY) * camRotationSensitivity;
+      camPitch += (mouseY - pmouseY) * camRotationSensitivity;
       camYaw   += (mouseX - pmouseX) * camRotationSensitivity;
     } else if (mouseButton == RIGHT) {
       float gain = 1.0f - (mouseY - pmouseY) * camZoomSensitivity;
@@ -54,11 +60,12 @@ void positionCamera() {
   }
 
   rotateX(camPitch);
-  rotateY(camYaw);
+  rotateZ(camYaw);
   scale(camZoom, camZoom, camZoom);
 }
 
 void drawCartesianAxes(float len) {
+  strokeWeight(4);
   stroke(#f00000);            // red
   line(0, 0, 0, len, 0, 0);   // x
   
