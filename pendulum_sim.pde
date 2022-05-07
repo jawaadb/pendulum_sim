@@ -24,15 +24,33 @@ void draw() {
 
   customCam.apply();
 
-  drawScene();
+  drawField();
+
+  pushMatrix();
+  translate(0, 0, refLen/2);
+  drawPendulum(refLen);
+  popMatrix();
 
   popMatrix();
 }
 
-void drawScene() {
+void drawField() {
   drawSceneGrids();
-  drawCartesianAxes(refLen / 2);
-  strokeWeight(2);
-  stroke(0);
-  box(refLen / 4);
+  drawCartesianAxes(refLen / 4);
+}
+
+void drawPendulum(float len) {
+  push();
+
+  stroke(#a349a4);
+  strokeWeight(8);
+  line(0,0,0, 0,0,-len);
+
+  noStroke();
+  fill(#a349a4);
+
+  translate(0,0,-len);
+  sphere(len*0.03f);
+
+  pop();
 }
