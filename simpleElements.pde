@@ -39,7 +39,7 @@ void drawSceneGrids() {
   final float cH = refLen;
 
   pushMatrix();
-  translate(-cW/2, -cD/2, cH/2);
+  translate(-cW/2, -cD/2, 0);
   drawGrid(cW, cD, 16, 8);
 
   stroke(#c0c0c0);
@@ -50,14 +50,14 @@ void drawSceneGrids() {
   pushMatrix();
   translate(0, cD/2, 0);
   rotateX(PI/2);
-  translate(-cW/2, -cH/2);
+  translate(-cW/2, -cH);
   drawGrid(cW, cH, 16, 8);
   popMatrix();
 
   pushMatrix();
   translate(-cW/2, 0, 0);
   rotateY(PI/2);
-  translate(-cH/2, -cD/2);
+  translate(0, -cD/2);
   drawGrid(cH, cD, 8, 8);
   popMatrix();
 

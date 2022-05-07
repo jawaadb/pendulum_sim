@@ -5,6 +5,8 @@ public class CustomCam {
   private float camRotationSensitivity = 0.01f;
   private float camZoomSensitivity = 0.01f;
 
+  private PVector camFocus = new PVector();
+
   public void apply() {
     final float minZoom = 0.2f;
     final float maxZoom = 5.0f;
@@ -22,6 +24,8 @@ public class CustomCam {
     rotateX(camPitch);
     rotateZ(camYaw);
     scale(camZoom, camZoom, camZoom);
+
+    translate(camFocus.x, camFocus.y, camFocus.z);
   }
 
   public void light() {
@@ -29,5 +33,9 @@ public class CustomCam {
     directionalLight(40,40,60,-1,1,0);
     directionalLight(80,80,80,0,0,1);
     ambientLight(120, 120, 120);
+  }
+
+  public void setFocus(PVector pt) {
+    camFocus.set(pt.x,pt.y,pt.z);
   }
 }

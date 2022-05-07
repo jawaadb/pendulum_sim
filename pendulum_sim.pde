@@ -17,6 +17,7 @@ void setup() {
 
   refLen = min(width, height);
   pendulum = new Pendulum(refLen);
+  customCam.setFocus(new PVector(0,0,refLen/2));
 }
 
 void draw() {
@@ -37,10 +38,7 @@ void draw() {
 
   drawField();
 
-  pushMatrix();
-  translate(0, 0, refLen/2);
   pendulum.draw(pendTop, PI/24.0f, phi);
-  popMatrix();
 
   popMatrix();
 
