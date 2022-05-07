@@ -3,10 +3,10 @@ float refLen;
 int frameCnt = 0;
 float phi = 0.0f;
 
-PVector pendTop = new PVector();
-PVector pendBot = new PVector();
-
 private final CustomCam customCam = new CustomCam();
+private Pendulum pendulum;
+
+PVector pendTop = new PVector();
 
 void setup() {
   size(960, 540, P3D);
@@ -16,13 +16,14 @@ void setup() {
   surface.setAlwaysOnTop(true);
 
   refLen = min(width, height);
+  pendulum = new Pendulum(refLen);
 }
 
 void draw() {
   float t = frameCnt / 60.0;
 
   phi += (2.0f/60.0f*PI) % (2.0f*PI);
-  pendTop.set(refLen*sin(2.0f*PI*0.1f*t), refLen/2*cos(2.0f*PI*0.3f*t), 0);
+  pendTop.set(refLen*sin(PI*0.2f*t), refLen/2*cos(PI*0.6f*t), 0);
 
   background(240);
 
@@ -38,7 +39,7 @@ void draw() {
 
   pushMatrix();
   translate(0, 0, refLen/2);
-  drawPendulum(pendTop, refLen, PI/24.0f, phi);
+  pendulum.draw(pendTop, PI/24.0f, phi);
   popMatrix();
 
   popMatrix();
@@ -51,22 +52,3 @@ void drawField() {
   drawCartesianAxes(refLen / 4);
 }
 
-void drawPendulum(PVector pos, float len, float theta, float phi) {
-  pendBot
-    .set(sin(theta)*cos(phi), sin(theta)*sin(phi),-cos(theta))
-    .setMag(len)
-    .add(pos);
-
-  push();
-
-  stroke(#a349a4);
-  strokeWeight(8);
-  line(pos.x,pos.y,pos.z, pendBot.x, pendBot.y, pendBot.z);
-
-  noStroke();
-  fill(#a349a4);
-  translate(pendBot.x, pendBot.y, pendBot.z);
-  sphere(len*0.03f);
-
-  pop();
-}
