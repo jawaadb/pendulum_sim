@@ -20,10 +20,7 @@ void draw() {
   scale(1, -1, 1);
   rotateX(-PI/2);
 
-  directionalLight(60,40,40,1,0,0);
-  directionalLight(40,40,60,-1,1,0);
-  directionalLight(80,80,80,0,0,1);
-  ambientLight(120, 120, 120);
+  customCam.light();
 
   customCam.apply();
 
