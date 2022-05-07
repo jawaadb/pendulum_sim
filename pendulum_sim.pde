@@ -3,7 +3,10 @@ float refLen;
 /* Camera control variables */
 float camPitch = 0.0f;
 float camYaw = 0.0f;
-float camControlSensitivity = 0.01f;
+float camZoom = 1.0f;
+float camRotationSensitivity = 0.01f;
+float camZoomSensitivity = 0.01f;
+
 
 void setup() {
   size(960, 540, P3D);
@@ -35,11 +38,20 @@ void drawScene() {
 }
 
 void positionCamera() {
+  final float minZoom = 0.2f;
+  final float maxZoom = 5.0f;
+
   if (mousePressed) {
-    camPitch -= (mouseY - pmouseY) * camControlSensitivity;
-    camYaw   += (mouseX - pmouseX) * camControlSensitivity;
+    if (mouseButton == LEFT) {
+      camPitch += -(mouseY - pmouseY) * camRotationSensitivity;
+      camYaw   += (mouseX - pmouseX) * camRotationSensitivity;
+    } else if (mouseButton == RIGHT) {
+      float gain = 1.0f - (mouseY - pmouseY) * camZoomSensitivity;
+      camZoom = max(min(camZoom * gain, maxZoom), minZoom);
+    }
   }
 
   rotateX(camPitch);
   rotateY(camYaw);
+  scale(camZoom, camZoom, camZoom);
 }
