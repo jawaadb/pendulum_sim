@@ -1,4 +1,6 @@
 void drawCartesianAxes(float len) {
+  pushStyle();
+
   strokeWeight(4);
   stroke(#f00000);            // red
   line(0, 0, 0, len, 0, 0);   // x
@@ -8,6 +10,8 @@ void drawCartesianAxes(float len) {
   
   stroke(#0000f0);            // blue
   line(0, 0, 0, 0, 0, len);   // z
+
+  popStyle();
 }
 
 void drawGrid(float w, float h, int nW, int nH) {
@@ -25,6 +29,8 @@ void drawGrid(float w, float h, int nW, int nH) {
 }
 
 void drawSceneGrids() {
+  pushStyle();
+
   strokeWeight(2);
   stroke(#ffffff);
 
@@ -54,4 +60,6 @@ void drawSceneGrids() {
   translate(-cH/2, -cD/2);
   drawGrid(cH, cD, 8, 8);
   popMatrix();
+
+  popStyle();
 }
