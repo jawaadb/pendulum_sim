@@ -1,12 +1,6 @@
 float refLen;
 
-/* Camera control variables */
-float camPitch = 0.5f;
-float camYaw = -0.5f;
-float camZoom = 0.5f;
-float camRotationSensitivity = 0.01f;
-float camZoomSensitivity = 0.01f;
-
+private final CustomCam customCam = new CustomCam();
 
 void setup() {
   size(960, 540, P3D);
@@ -31,7 +25,7 @@ void draw() {
   directionalLight(80,80,80,0,0,1);
   ambientLight(120, 120, 120);
 
-  positionCamera();
+  customCam.apply();
 
   drawScene();
 
@@ -79,21 +73,4 @@ void drawSceneGrids() {
   popMatrix();
 }
 
-void positionCamera() {
-  final float minZoom = 0.2f;
-  final float maxZoom = 5.0f;
 
-  if (mousePressed) {
-    if (mouseButton == LEFT) {
-      camPitch += (mouseY - pmouseY) * camRotationSensitivity;
-      camYaw   += (mouseX - pmouseX) * camRotationSensitivity;
-    } else if (mouseButton == RIGHT) {
-      float gain = 1.0f - (mouseY - pmouseY) * camZoomSensitivity;
-      camZoom = max(min(camZoom * gain, maxZoom), minZoom);
-    }
-  }
-
-  rotateX(camPitch);
-  rotateZ(camYaw);
-  scale(camZoom, camZoom, camZoom);
-}
