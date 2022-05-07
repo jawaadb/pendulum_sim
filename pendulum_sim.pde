@@ -9,7 +9,7 @@ private Pendulum pendulum;
 PVector pendTop = new PVector();
 
 void setup() {
-  size(960, 540, P3D);
+  size(1280, 720, P3D);
   surface.setTitle("Pendulum sim");
   surface.setResizable(false);
   surface.setLocation(100, 100);
