@@ -3,7 +3,8 @@ float refLen;
 int frameCnt = 0;
 float phi = 0.0f;
 
-PVector pendPos = new PVector(0, 0);
+PVector pendTop = new PVector();
+PVector pendBot = new PVector();
 
 private final CustomCam customCam = new CustomCam();
 
@@ -21,7 +22,7 @@ void draw() {
   float t = frameCnt / 60.0;
 
   phi += (2.0f/60.0f*PI) % (2.0f*PI);
-  pendPos.set(refLen*sin(2.0f*PI*0.1f*t), refLen/2*cos(2.0f*PI*0.3f*t));
+  pendTop.set(refLen*sin(2.0f*PI*0.1f*t), refLen/2*cos(2.0f*PI*0.3f*t), 0);
 
   background(240);
 
@@ -37,7 +38,7 @@ void draw() {
 
   pushMatrix();
   translate(0, 0, refLen/2);
-  drawPendulum(pendPos, refLen, PI/24.0f, phi);
+  drawPendulum(pendTop, refLen, PI/24.0f, phi);
   popMatrix();
 
   popMatrix();
@@ -51,21 +52,20 @@ void drawField() {
 }
 
 void drawPendulum(PVector pos, float len, float theta, float phi) {
+  pendBot
+    .set(sin(theta)*cos(phi), sin(theta)*sin(phi),-cos(theta))
+    .setMag(len)
+    .add(pos);
+
   push();
 
   stroke(#a349a4);
   strokeWeight(8);
-
-  translate(pos.x, pos.y, pos.z);
-  rotateZ(phi);
-  rotateY(-theta);
-
-  line(0,0,0, 0,0,-len);
+  line(pos.x,pos.y,pos.z, pendBot.x, pendBot.y, pendBot.z);
 
   noStroke();
   fill(#a349a4);
-
-  translate(0,0,-len);
+  translate(pendBot.x, pendBot.y, pendBot.z);
   sphere(len*0.03f);
 
   pop();
