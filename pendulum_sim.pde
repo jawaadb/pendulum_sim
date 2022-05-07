@@ -39,38 +39,3 @@ void drawScene() {
   stroke(0);
   box(refLen / 4);
 }
-
-
-void drawSceneGrids() {
-  strokeWeight(2);
-  stroke(#ffffff);
-
-  final float cW = refLen * 2;
-  final float cD = refLen;
-  final float cH = refLen;
-
-  pushMatrix();
-  translate(-cW/2, -cD/2, cH/2);
-  drawGrid(cW, cD, 16, 8);
-
-  stroke(#c0c0c0);
-  translate(0,0,-cH);
-  drawGrid(cW, cD, 16, 8);
-  popMatrix();
-
-  pushMatrix();
-  translate(0, cD/2, 0);
-  rotateX(PI/2);
-  translate(-cW/2, -cH/2);
-  drawGrid(cW, cH, 16, 8);
-  popMatrix();
-
-  pushMatrix();
-  translate(-cW/2, 0, 0);
-  rotateY(PI/2);
-  translate(-cH/2, -cD/2);
-  drawGrid(cH, cD, 8, 8);
-  popMatrix();
-}
-
-
