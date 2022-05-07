@@ -1,9 +1,9 @@
 float refLen;
 
 /* Camera control variables */
-float camPitch = 0.0f;
-float camYaw = 0.0f;
-float camZoom = 1.0f;
+float camPitch = 0.5f;
+float camYaw = -0.5f;
+float camZoom = 0.5f;
 float camRotationSensitivity = 0.01f;
 float camZoomSensitivity = 0.01f;
 
