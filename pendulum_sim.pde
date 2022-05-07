@@ -1,6 +1,9 @@
 float refLen;
 
 int frameCnt = 0;
+float phi = 0.0f;
+
+PVector pendPos = new PVector(0, 0);
 
 private final CustomCam customCam = new CustomCam();
 
@@ -16,8 +19,9 @@ void setup() {
 
 void draw() {
   float t = frameCnt / 60.0;
-  float theta = PI/6.0f*sin(2.0f*PI*0.5*t);
-  float phi   = 0; //PI/6.0f*cos(2.0f*PI*0.5*t);
+
+  phi += (2.0f/60.0f*PI) % (2.0f*PI);
+  pendPos.set(refLen*sin(2.0f*PI*0.1f*t), refLen/2*cos(2.0f*PI*0.3f*t));
 
   background(240);
 
@@ -33,7 +37,7 @@ void draw() {
 
   pushMatrix();
   translate(0, 0, refLen/2);
-  drawPendulum(refLen, theta, phi);
+  drawPendulum(pendPos, refLen, PI/24.0f, phi);
   popMatrix();
 
   popMatrix();
@@ -46,12 +50,13 @@ void drawField() {
   drawCartesianAxes(refLen / 4);
 }
 
-void drawPendulum(float len, float theta, float phi) {
+void drawPendulum(PVector pos, float len, float theta, float phi) {
   push();
 
   stroke(#a349a4);
   strokeWeight(8);
 
+  translate(pos.x, pos.y, pos.z);
   rotateZ(phi);
   rotateY(-theta);
 
