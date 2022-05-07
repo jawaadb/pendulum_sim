@@ -34,6 +34,8 @@ void draw() {
 }
 
 void drawScene() {
+  drawCartesianAxes(refLen / 2);
+  stroke(0);
   box(refLen / 4);
 }
 
@@ -54,4 +56,15 @@ void positionCamera() {
   rotateX(camPitch);
   rotateY(camYaw);
   scale(camZoom, camZoom, camZoom);
+}
+
+void drawCartesianAxes(float len) {
+  stroke(#f00000);            // red
+  line(0, 0, 0, len, 0, 0);   // x
+  
+  stroke(#00f000);            // green
+  line(0, 0, 0, 0, len, 0);   // y
+  
+  stroke(#0000f0);            // blue
+  line(0, 0, 0, 0, 0, len);   // z
 }
